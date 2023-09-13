@@ -65,3 +65,16 @@ int main()
 	
 	return 0 ;
 }
+
+
+OUTPUT
+-----------------------------------------------------------------------------------------
+student@student:~$ g++ consumer-producer.cpp -lpthread
+student@student:~$ ./a.out
+	
+1 Im in producer 84
+2 Im in producer 87
+1 Im in consumer 84
+2 Im in consumer 87
+3 Im in producer 78
+3 Im in consumer 78
