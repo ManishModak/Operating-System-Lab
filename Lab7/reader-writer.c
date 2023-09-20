@@ -15,7 +15,7 @@ void* writerFunction(void* arg) {
 		printf("Thread %ld is writing\n",pthread_self());
 	sem_post(&writer) ;
 	
-	sleep(1);
+	//sleep(1);
 }
 
 void* readerFunction(void* arg) {
@@ -35,7 +35,7 @@ void* readerFunction(void* arg) {
 			sem_post(&writer);
 	sem_post(&reader);
 	
-	sleep(1);
+	//sleep(1);
 }
 
 int main() {
@@ -57,13 +57,15 @@ int main() {
 	return 0 ;
 }
 
+OUTPUT
 ---------------------------------------------------------------------------------------------------------------------
 student@student:~$ gcc reader-writer.c
 student@student:~$ ./a.out
 
-Thread 139758644753984 is writing
-Thread 139758636361280 is reading
-Thread 139758627968576 is reading
-Thread 139758476965440 is reading
-Thread 139758611183168 is writing
-Thread 139758619575872 is writing
+Thread 140306865452608 is writing
+Thread 140306857059904 is reading
+Thread 140306716554816 is reading
+Thread 140306848667200 is writing
+Thread 140306840274496 is reading
+Thread 140306831881792 is writing
+
