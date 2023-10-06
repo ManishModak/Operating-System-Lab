@@ -62,3 +62,13 @@ int main() {
 	
 	return 0 ;
 }
+
+
+----------------------------------------------------------------------
+	
+student@student:~/Downloads$ gcc a.c -o a
+student@student:~/Downloads$ ./a
+Hi
+User 2: hello myself Donald
+ 
+wordCount: 3,lineCount: 1,charCount: 17 
