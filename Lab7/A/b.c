@@ -8,19 +8,32 @@
 
 int main() {
 
+	char * myfile = "/home/student/TA45/file.txt" ;
+	
+	FILE *fp ;
+
 	int fd1 ;
 	
-	char * myfifo = "/tmp/myfifo" ;
+	char * myfifo1 = "/home/student/TA45/myfifo1" ;
 	
-	mkfifo(myfifo,0666) ;
+	char * myfifo2 = "/home/student/TA45/myfifo2" ;
+	
+	mkfifo(myfifo1,0666) ;
+	
+	mkfifo(myfifo2,0666) ;
 	
 	char arr1[80] , arr2[80] ;
 	
 	while(1) {
 	
 		int i = 0 , wordCount = 0 , lineCount = 0 , charCount = 0 ;
+		
+		
+		
+		
+		//Reading from fifo1
 	
-		fd1 = open(myfifo,O_RDONLY);
+		fd1 = open(myfifo1,O_RDONLY);
 		
 		read(fd1,arr1,80);
 		
@@ -28,13 +41,38 @@ int main() {
 		
 		close(fd1);
 		
-		while(i < strlen(arr1)) {
+		
+		
+		
+		//Reading from fifo2
+		
+		char countData[100] ;
+		
+		fd1 = open(myfifo2,O_RDONLY) ;
+		
+		read(fd1,countData,sizeof(countData));
+		
+		printf("User CountData: %s \n",countData);
+		
+		close(fd1);
+		
+		
+		
+		//writing into fifo1
+		
+		fd1 = open(myfifo1,O_WRONLY) ;
+		
+		fgets(arr2,80,stdin);
+		
+		write(fd1,arr2,strlen(arr2)+1);
+		
+		while(i < strlen(arr2)) {
 			
-			if(arr1[i] == ' ')
+			if(arr2[i] == ' ')
 			{
 				wordCount++ ;
 			}
-			else if(arr1[i] == '\n')
+			else if(arr2[i] == '\n')
 			{
 				wordCount++ ;
 				lineCount++ ;
@@ -47,15 +85,36 @@ int main() {
 			i++;
 		}
 		
-		printf("wordCount: %d,lineCount: %d,charCount: %d \n",wordCount,lineCount,charCount) ;
+		close(fd1);
+	
 		
-		fd1 = open(myfifo,O_WRONLY) ;
 		
-		fgets(arr2,80,stdin);
 		
-		write(fd1,arr2,strlen(arr2)+1);
+		//count data and wrirting in fifo2
+			
+		char tempstr[100];
+		sprintf(tempstr, "wordCount: %d, lineCount: %d, charCount: %d\n", wordCount, lineCount, charCount);
+
+			
+		fp = fopen(myfile,"w");
 		
-		close(fd1);	
+		if(fp) 
+		{
+			fputs(tempstr, fp);
+            fclose(fp);
+		}
+		else
+		{
+			printf("Error Opening the File");
+		}
+		
+		
+		fd1 = open(myfifo2,O_WRONLY) ;
+		
+		write(fd1,tempstr,strlen(tempstr)+1);
+		
+		close(fd1);
+		
 		
 	}
 	
@@ -64,15 +123,16 @@ int main() {
 }
 
 
+/*
 
--------------------------------------------------------------------------------------
-
-
-User 1: Hi
+student@student:~$ gcc b.c -o b
+student@student:~$ ./b
+User 1: Hi Im Manish
  
-wordCount: 1,lineCount: 1,charCount: 2 
-hello myself Donald
-User 1: Hi
+User CountData: wordCount: 3, lineCount: 1, charCount: 10
  
-wordCount: 1,lineCount: 1,charCount: 2 
+Hello Myself zein
+User 1: Hi Im Manish
 
+
+*/
