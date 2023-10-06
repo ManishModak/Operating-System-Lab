@@ -62,3 +62,17 @@ int main() {
 	
 	return 0 ;
 }
+
+
+
+-------------------------------------------------------------------------------------
+
+
+User 1: Hi
+ 
+wordCount: 1,lineCount: 1,charCount: 2 
+hello myself Donald
+User 1: Hi
+ 
+wordCount: 1,lineCount: 1,charCount: 2 
+
