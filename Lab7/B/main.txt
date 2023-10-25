@@ -1,0 +1,47 @@
+**Writer**
+#include<stdio.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
+
+
+int main()
+{
+ key_t key= ftok("shmfile",65);
+ //create id
+ int shmid = shmget(key,1022,0666|IPC_CREAT);
+ //attached memory.
+ char* str = (char*) shmat(shmid,(void*)0,0);
+ printf("write data");
+ gets(str);
+ printf("data written in the memory: %s\n",str);
+ shmdt(str);
+ return 0;
+}
+
+//OUTPUT:
+
+write data: manish here
+data written in the memory: : manish here
+
+     **Reader**
+
+#include<stdio.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
+
+
+int main()
+{
+ key_t key= ftok("shmfile",65);
+ //create id
+ int shmid = shmget(key,1022,0666|IPC_CREAT);
+ //attached memory.
+ char* str = (char*) shmat(shmid,(void*)0,0);
+ printf("data read from memory: %s\n",str);
+ shmdt(str);
+ return 0;
+}
+//OUTPUT 
+
+data read from memory: : manish here
+	
