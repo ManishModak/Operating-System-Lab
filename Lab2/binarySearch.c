@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+
 int binarySearch(int arr[], int searchVal, int low, int high)
 {
 	int mid = (low+high)/2 ;
@@ -49,3 +50,13 @@ void main(int argc ,char* argv[])
 	}
 }
 
+
+/*
+
+manish@manish-VirtualBox:~/git_environment/Operating-System-Lab/Lab2$ ./main ./b 3 2 1 5
+
+Enter The no. to be found: 5
+
+3
+
+*/
