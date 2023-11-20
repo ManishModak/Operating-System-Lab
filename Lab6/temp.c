@@ -145,7 +145,7 @@ int main() {
     int n = sizeof(pages) / sizeof(pages[0]);
     int capacity = 3;
 
-    fcfs(pages, n, capacity);
+    fifo(pages, n, capacity);
     lru(pages, n, capacity);
     optimal(pages, n, capacity);
 
